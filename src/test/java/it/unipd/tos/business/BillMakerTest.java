@@ -28,11 +28,13 @@ public class BillMakerTest {
     @Test
     public void getOrderPrice_ValidMenuItem_CorrectOrderAmount() {
         menuList.add(new BaseMenuItem(MenuItemType.BEVANDE, "spritz", 3.5));
+        menuList.add(new BaseMenuItem(MenuItemType.BEVANDE, "spritz", 3.5));
+        menuList.add(new BaseMenuItem(MenuItemType.BEVANDE, "spritz", 3.5));
         menuList.add(new BaseMenuItem(MenuItemType.BEVANDE, "hugo", 3.5));
         menuList.add(new BaseMenuItem(MenuItemType.FRITTI, "olive", 4.0));
         menuList.add(new BaseMenuItem(MenuItemType.PANINI, "primavera", 4.0));
         try {
-            assertEquals(15, billMaker.getOrderPrice(menuList), DELTA);
+            assertEquals(22, billMaker.getOrderPrice(menuList), DELTA);
         } catch (TakeAwayBillException e) {
             fail("Unexpected Exception: " + e.getMessage());
         }
@@ -44,8 +46,10 @@ public class BillMakerTest {
         menuList.add(new BaseMenuItem(MenuItemType.FRITTI, "olive", 4.0));
         menuList.add(new BaseMenuItem(MenuItemType.BEVANDE, "hugo", 3.5));
         menuList.add(new BaseMenuItem(MenuItemType.BEVANDE, "spritz", 3.5));
+        menuList.add(new BaseMenuItem(MenuItemType.BEVANDE, "spritz", 3.5));
+        menuList.add(new BaseMenuItem(MenuItemType.BEVANDE, "spritz", 3.5));
         try {
-            assertEquals(15, billMaker.getOrderPrice(menuList), DELTA);
+            assertEquals(22, billMaker.getOrderPrice(menuList), DELTA);
         } catch (TakeAwayBillException e) {
             fail("Unexpected Exception: " + e.getMessage());
         }
@@ -79,5 +83,39 @@ public class BillMakerTest {
             fail("Unexpected Exception: " + e.getMessage());
         }
     }
-
+    
+    @Test
+    public void getOrderPrice_SixSandwiches_LeastExpensiveDiscounted() {
+        menuList.add(new BaseMenuItem(MenuItemType.PANINI, "primavera", 4.0));
+        menuList.add(new BaseMenuItem(MenuItemType.BEVANDE, "spritz", 3.5));
+        menuList.add(new BaseMenuItem(MenuItemType.FRITTI, "olive", 4.0));
+        menuList.add(new BaseMenuItem(MenuItemType.PANINI, "primavera", 4.0));
+        menuList.add(new BaseMenuItem(MenuItemType.PANINI, "primavera", 4.0));
+        menuList.add(new BaseMenuItem(MenuItemType.PANINI, "primavera", 4.0));
+        menuList.add(new BaseMenuItem(MenuItemType.PANINI, "vegetariano", 3.5));
+        menuList.add(new BaseMenuItem(MenuItemType.PANINI, "vegetariano", 3.5));
+        try {
+            assertEquals(28.75, billMaker.getOrderPrice(menuList), DELTA);
+        } catch (TakeAwayBillException e) {
+            fail("Unexpected Exception: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    public void getOrderPrice_SixSandwichesInverted_LeastExpensiveDiscounted() {
+        menuList.add(new BaseMenuItem(MenuItemType.PANINI, "vegetariano", 3.5));
+        menuList.add(new BaseMenuItem(MenuItemType.PANINI, "vegetariano", 3.5));
+        menuList.add(new BaseMenuItem(MenuItemType.PANINI, "primavera", 4.0));
+        menuList.add(new BaseMenuItem(MenuItemType.PANINI, "primavera", 4.0));
+        menuList.add(new BaseMenuItem(MenuItemType.PANINI, "primavera", 4.0));
+        menuList.add(new BaseMenuItem(MenuItemType.FRITTI, "olive", 4.0));
+        menuList.add(new BaseMenuItem(MenuItemType.BEVANDE, "spritz", 3.5));
+        menuList.add(new BaseMenuItem(MenuItemType.PANINI, "primavera", 4.0));
+        try {
+            assertEquals(28.75, billMaker.getOrderPrice(menuList), DELTA);
+        } catch (TakeAwayBillException e) {
+            fail("Unexpected Exception: " + e.getMessage());
+        }
+    }
+    
 }
