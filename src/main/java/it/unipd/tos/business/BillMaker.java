@@ -13,7 +13,11 @@ public class BillMaker implements TakeAwayBill {
 
     public double getOrderPrice(List<MenuItem> itemsOrdered) 
             throws TakeAwayBillException {
-        return 0;
+        double amount = 0;
+        for (MenuItem menuItem : itemsOrdered) {
+            amount += menuItem.getPrice();
+        }
+        return amount;
     }
 
 }
