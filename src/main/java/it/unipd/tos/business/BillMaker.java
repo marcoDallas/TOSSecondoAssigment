@@ -14,12 +14,18 @@ public class BillMaker implements TakeAwayBill {
 
     private static final int SANDWICH_DISCOUNT_LIMIT = 5;
     private static final int AMOUNT_DISCOUNT_LIMIT = 50;
+    private static final int MAX_ELEMENTS_PER_ORDER = 30;
     
     public double getOrderPrice(List<MenuItem> itemsOrdered) 
             throws TakeAwayBillException {
         double amount = 0;
         int sandwichCount = 0;
         double leastExpensive = Double.MAX_VALUE;
+        
+        if (itemsOrdered.size() > MAX_ELEMENTS_PER_ORDER) {
+            throw new TakeAwayBillException("Superato numero massimo elementi");
+        }
+            
         
         for (MenuItem menuItem : itemsOrdered) {
             double price = menuItem.getPrice();

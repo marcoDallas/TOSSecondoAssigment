@@ -50,15 +50,15 @@ public class BillMakerParameterizedTest {
         Collections.reverse(invertedSixSandwiches);
         
         ArrayList<MenuItem> listOf51Drinks = new ArrayList<MenuItem>();
-        for(int i = 0; i < 51; ++i) {
+        for(int i = 0; i < 26; ++i) {
             listOf51Drinks.add(new BaseMenuItem(MenuItemType.BEVANDE, 
-                    "spritz", 1));
+                    "spritz", 2));
         }
         
         ArrayList<MenuItem> listOf51Sandwiches = new ArrayList<MenuItem>();
-        for(int i = 0; i < 51; ++i) {
+        for(int i = 0; i < 26; ++i) {
             listOf51Sandwiches.add(new BaseMenuItem(MenuItemType.PANINI, 
-                    "spritz", 1));
+                    "primavera", 2));
         }
         
         return Arrays.asList(new Object[][] {
@@ -67,8 +67,8 @@ public class BillMakerParameterizedTest {
             {emptyList, 0},
             {sixSandwiches, 28.5},
             {invertedSixSandwiches, 28.5},
-            {listOf51Drinks, 45.9},
-            {listOf51Sandwiches, 45.45} 
+            {listOf51Drinks, 46.8},
+            {listOf51Sandwiches, 45.90} 
         });
     }
             

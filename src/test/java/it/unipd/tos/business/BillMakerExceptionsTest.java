@@ -42,4 +42,14 @@ public class BillMakerExceptionsTest {
             fail("Unexpected Exception: " + e.getMessage());
         }
     }
+    
+    @Test(expected = TakeAwayBillException.class)
+    public void getOrderPrice_MoreThan30Elements_ExceptionThrown() 
+            throws TakeAwayBillException {
+        for (int i = 0; i < 31; ++i) {
+            menuList.add(new BaseMenuItem(MenuItemType.PANINI, 
+                    "primavera", 4.0));
+        }
+        billMaker.getOrderPrice(menuList);
+    }
 }
