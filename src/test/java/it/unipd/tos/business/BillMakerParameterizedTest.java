@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -26,9 +27,13 @@ public class BillMakerParameterizedTest {
     private double expectedAmount = 0;
     private static final double DELTA = 0.001;
 
+    @Before
+    public void before() {
+        billMaker = new BillMaker();
+    }
+    
     public BillMakerParameterizedTest(ArrayList<MenuItem> menuList, 
             double expectedAmount) {
-        billMaker = new BillMaker();
         this.menuList = menuList;
         this.expectedAmount = expectedAmount;
     }
@@ -61,6 +66,12 @@ public class BillMakerParameterizedTest {
                     "primavera", 2));
         }
         
+        ArrayList<MenuItem> twoDrinks = new ArrayList<MenuItem>();
+        for(int i = 0; i < 2; ++i) {
+            twoDrinks.add(new BaseMenuItem(MenuItemType.BEVANDE, 
+                    "acqua", 1));
+        }
+        
         return Arrays.asList(new Object[][] {
             {simpleList, 22},
             {invertedSimpleList, 22},
@@ -68,7 +79,8 @@ public class BillMakerParameterizedTest {
             {sixSandwiches, 28.5},
             {invertedSixSandwiches, 28.5},
             {listOf51Drinks, 46.8},
-            {listOf51Sandwiches, 45.90} 
+            {listOf51Sandwiches, 45.90} ,
+            {twoDrinks, 2.5}
         });
     }
             

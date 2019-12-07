@@ -12,9 +12,13 @@ import it.unipd.tos.model.MenuItem.MenuItemType;
 
 public class BillMaker implements TakeAwayBill {
 
+    private static final double SANDWICH_DISCOUNT_VALUE = 0.5;
     private static final int SANDWICH_DISCOUNT_LIMIT = 5;
     private static final int AMOUNT_DISCOUNT_LIMIT = 50;
+    private static final double DISCOUNT_VALUE = 0.9;
     private static final int MAX_ELEMENTS_PER_ORDER = 30;
+    private static final int SURCHARGE_MIN_ELEMENTS = 10;
+    private static final double SURCHARGE_VALUE = 0.5;
     
     public double getOrderPrice(List<MenuItem> itemsOrdered) 
             throws TakeAwayBillException {
@@ -39,12 +43,17 @@ public class BillMaker implements TakeAwayBill {
             amount += price;
         }
         if (sandwichCount > SANDWICH_DISCOUNT_LIMIT) {
-            amount -= (leastExpensive / 2);
+            amount -= (leastExpensive * SANDWICH_DISCOUNT_VALUE);
         }
         
         if (amount > AMOUNT_DISCOUNT_LIMIT) {
-            amount *= 0.9;
+            amount *= DISCOUNT_VALUE;
         }
+        
+        if (amount > 0 && amount < SURCHARGE_MIN_ELEMENTS) {
+            amount += SURCHARGE_VALUE;
+        }
+            
         
         return amount;
     }

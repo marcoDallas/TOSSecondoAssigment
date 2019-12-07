@@ -1,6 +1,6 @@
 package it.unipd.tos.business;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
